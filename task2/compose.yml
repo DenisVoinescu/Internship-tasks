@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=denis
+      - POSTGRES_USER=postgres
+    ports:
+      - '5432:5432'
+  app:
+    build: .
+    ports:
+      - "8000:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: denis
